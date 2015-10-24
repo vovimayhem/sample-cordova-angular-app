@@ -1,0 +1,5 @@
+platforms/*
+!platforms/.keep
+
+plugins/*
+!plugins/.keep
