@@ -15,6 +15,7 @@
       function   SignInController   (  $state,   $rootScope,   AuthenticationService) {
 
         console.log("Configuring app's 'signin' controller...");
+        console.log(this);
 
         var vm = this;
         vm.signin = signin;
@@ -26,9 +27,10 @@
         })();
 
         function signin() {
+          console.log("SignInController.signin");
           vm.dataLoading = true;
 
-          AuthenticationService.authenticateUser({
+          return AuthenticationService.authenticateUser({
             username: vm.username,
             password: vm.password
           }).then(
