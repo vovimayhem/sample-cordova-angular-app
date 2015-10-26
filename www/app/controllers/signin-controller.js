@@ -31,7 +31,7 @@
           }).then(
             // auth success:
             function(user) {
-              var returnToState = ($rootScope.returnToState || '/');
+              var returnToState = ($rootScope.returnToState || 'home');
               var returnToStateParams = ($rootScope.returnToStateParams || {});
               return $state.go(returnToState, returnToStateParams);
             },
