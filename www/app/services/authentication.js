@@ -108,7 +108,11 @@
                 var deferred = $q.defer();
                 var request = store.add(user);
 
-                request.onsuccess = function(event) { deferred.resolve(event); };
+                request.onsuccess = function(event) {
+                  console.log("Added object to 'sessions' object store");
+                  deferred.resolve(event);
+                };
+
                 request.onerror   = function(error) { deferred.reject(error);  };
 
                 return deferred.promise;
@@ -123,7 +127,11 @@
                 var deferred = $q.defer();
                 var request = store.clear();
 
-                request.onsuccess = function(event) { deferred.resolve(event); };
+                request.onsuccess = function(event) {
+                  console.log("Cleared 'sessions' object store");
+                  deferred.resolve(event);
+                };
+
                 request.onerror   = function(error) { deferred.reject(error);  };
 
                 return deferred.promise;
