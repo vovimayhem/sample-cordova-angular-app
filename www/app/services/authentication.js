@@ -25,35 +25,30 @@
 
           authenticateUser: function(creds) {
 
-            console.log('AuthenticationService.authenticateUser called');
-            console.log(creds);
-
             if (typeof creds !== 'undefined' && creds !== null) {
 
               // This should instead go to a web service of some sort...
               if (creds.username == 'test' && creds.password == 'test') {
-                var testUser = { name: "Test User", token: "Wachumara" };
-                return this.setCurrentUser(testUser);
+                return this.setCurrentUser({
+                  name: "Test User", token: "Wachumara"
+                });
               } else {
                 var deferred = $q.defer();
                 deferred.reject("Invalid username/password");
                 return deferred.promise;
               }
             } else {
-              console.log('AuthenticationService.authenticateUser -> checking for current user...');
+
               // Check if there's a logged-in user:
               return this.getCurrentUser().then(
                 function(user) {
                   // return true if the user is authenticated:
-                  console.log('AuthenticationService.authenticateUser Success!');
                   return user;
                 },
 
                 // On promise rejected since there's no user signed in,
                 // navigate to the signin state:
                 function(error) {
-
-                  console.log('AuthenticationService.authenticateUser Error: ' + error.message);
 
                   // Since the user is not authenticated, stow the state they
                   // wanted before we send them to the signin state, so we can
@@ -105,17 +100,17 @@
             user.key = "current_user";
 
             // Create a DB 'add' request for the received session object:
-            DatabaseService.getObjectStore('sessions', 'readwrite').then(
+            return DatabaseService.getObjectStore('sessions', 'readwrite').then(
               function(store) {
                 var deferred = $q.defer();
                 var request = store.add(user);
 
                 request.onsuccess = function(event) { deferred.resolve(event); };
                 request.onerror   = function(error) { deferred.reject(error);  };
+
+                return deferred.promise;
               }
             );
-
-            return deferred.promise;
           },
 
           clearCurrentUser: function() {
