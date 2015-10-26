@@ -11,14 +11,8 @@
     ])
 
     // Configure the angular UI routes/states for the home routes:
-    .controller('SignInController', [ "$state", "$rootScope", "AuthenticationService",
-      function   SignInController   (  $state,   $rootScope,   AuthenticationService) {
-
-        console.log("Configuring app's 'signin' controller...");
-        console.log(this);
-
-        var vm = this;
-        vm.signin = signin;
+    .controller('SignInController', [ "$scope", "$state", "$rootScope", "AuthenticationService",
+      function   SignInController   (  $scope,   $state,   $rootScope,   AuthenticationService) {
 
         // clear any saved credentials...
         (function initSignInController() {
@@ -26,13 +20,14 @@
           AuthenticationService.clearCurrentUser();
         })();
 
-        function signin() {
+        $scope.signin = function() {
           console.log("SignInController.signin");
-          vm.dataLoading = true;
+          console.log("Username: '" + $scope.username + "'; Password: '" + $scope.password + "'");
+          $scope.dataLoading = true;
 
           return AuthenticationService.authenticateUser({
-            username: vm.username,
-            password: vm.password
+            username: $scope.username,
+            password: $scope.password
           }).then(
             // auth success:
             function(user) {
@@ -43,11 +38,10 @@
 
             function(errorObject) {
               // FlashService.Error(errorObject.message);
-              vm.dataLoading = false;
+              $scope.dataLoading = false;
             }
           );
         };
-
 
       }
     ]);
