@@ -15,10 +15,7 @@
       function   SignInController   (  $scope,   $state,   $rootScope,   AuthenticationService) {
 
         // clear any saved credentials...
-        (function initSignInController() {
-          // reset login status
-          AuthenticationService.clearCurrentUser();
-        })();
+        AuthenticationService.clearCurrentUser();
 
         $scope.signin = function() {
           console.log("SignInController.signin");
