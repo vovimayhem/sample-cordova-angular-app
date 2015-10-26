@@ -27,8 +27,11 @@
 
             if (typeof creds !== 'undefined' && creds !== null) {
 
+              var givenUsername = creds.username.toString().toLowerCase();
+              var givenPassword = creds.password.toString();
+
               // This should instead go to a web service of some sort...
-              if (creds.username == 'test' && creds.password == 'test') {
+              if (givenUsername == 'test' && givenPassword == 'test') {
                 return this.setCurrentUser({
                   name: "Test User", token: "Wachumara"
                 });
