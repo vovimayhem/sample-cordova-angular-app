@@ -17,6 +17,13 @@
         // The object in which we'll store the database:
         var db;
 
+        // This works on all browsers, and only uses IndexedDBShim as a final fallback
+        var indexedDB = $window.indexedDB       ||
+                        $window.mozIndexedDB    ||
+                        $window.webkitIndexedDB ||
+                        $window.msIndexedDB     ||
+                        $window.shimIndexedDB;
+
         return {
 
           getDatabase: function() {
@@ -28,7 +35,7 @@
             } else {
               // Initialize the database:
               // Make a request to open the database:
-              var openReq = $window.indexedDB.open(DB_NAME, DB_VERSION);
+              var openReq = indexedDB.open(DB_NAME, DB_VERSION);
 
               // The callback used when the DB was opened successfully, but changes where
               // required:
