@@ -4,13 +4,11 @@
 
   angular
 
-    // Declare the dependencies for the Angular controller defined in this file:
-    .module('SampleApp.signin', [
-      'SampleApp.AuthenticationService',
-      'ui.router'
-    ])
+    // Refer to the 'SampleApp.Authentication' angular module already defined in
+    // the 'routes/authentication.js' file:
+    .module('SampleApp.Authentication')
 
-    // Configure the angular UI routes/states for the home routes:
+    // Setup the Angular Controller for the 'signin' state/route:
     .controller('SignInController', [ "$scope", "$state", "$rootScope", "AuthenticationService",
       function   SignInController   (  $scope,   $state,   $rootScope,   AuthenticationService) {
 
@@ -18,8 +16,7 @@
         AuthenticationService.clearCurrentUser();
 
         $scope.signin = function() {
-          console.log("SignInController.signin");
-          console.log("Username: '" + $scope.username + "'; Password: '" + $scope.password + "'");
+
           $scope.dataLoading = true;
 
           return AuthenticationService.authenticateUser({

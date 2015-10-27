@@ -40,19 +40,30 @@
     <script src="vendor/angular-animate-1.2.16.js"></script>
     <script src="vendor/angular-ui-router-0.2.25.js"></script>
 
+    <!-- load the app start routines -->
+    <script type="text/javascript" src="config/application.js"></script>
+    <script type="text/javascript" src="config/cordova-boot.js"></script>
+
     <!-- load the app services: -->
     <script type="text/javascript" src="app/services/database.js"></script>
     <script type="text/javascript" src="app/services/authentication.js"></script>
 
-    <!-- The app routes: -->
-    <script type="text/javascript" src="config/routes.js"></script>
+    <!--
 
-    <!-- load the app controller -->
-    <script type="text/javascript" src="app/controllers/signin-controller.js"></script>
+    Load the app routes and controllers:
 
-    <!-- load the app start routines -->
-    <script type="text/javascript" src="config/application.js"></script>
-    <script type="text/javascript" src="config/cordova-boot.js"></script>
+    Since the common case is to have routes without controllers, we'll
+    require files in the following order:
+
+     1: Load the required route file first. Route files will declare the sub-module.
+     2: If the specified route references a specific controller, require it.
+     Controller files will reference the sub-module it belongs to, rather than
+     defining it!
+    -->
+    <script type="text/javascript" src="app/routes/home.js"></script>
+
+    <script type="text/javascript" src="app/routes/authentication.js"></script>
+    <script type="text/javascript" src="app/controllers/signin.js"></script>
 
     <title ng-bind="$state.current.name + ' - ui-router'">ui-router</title>
   </head>

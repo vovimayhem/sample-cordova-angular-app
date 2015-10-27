@@ -5,7 +5,6 @@
   angular
     .module('SampleApp.AuthenticationService', [
       'SampleApp.DatabaseService', // Needed by methods that check the database
-      'SampleApp.signin',          // Needed by the authenticateUser method to re-route the user to the signin state
       'ui.router'                  // Needed by the authenticateUser method to route the user to any state
     ])
     .factory('AuthenticationService', [    "$rootScope", "$q", "$state", "DatabaseService",
